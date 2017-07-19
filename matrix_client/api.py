@@ -24,6 +24,7 @@ except ImportError:
     from urllib.parse import quote
 
 MATRIX_V2_API_PATH = "/_matrix/client/r0"
+TCP_TIMEOUT = 90  # used for both connect and read timeouts
 
 
 class MatrixHttpApi(object):
@@ -560,7 +561,8 @@ class MatrixHttpApi(object):
                 params=query_params,
                 data=content,
                 headers=headers,
-                verify=self.validate_cert
+                verify=self.validate_cert,
+                timeout=TCP_TIMEOUT
             )
 
             if response.status_code == 429:
